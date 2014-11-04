@@ -2,6 +2,21 @@ InsightJS [![Travis Results](https://travis-ci.org/ScottLogic/insight.svg?branch
 =======
 
 InsightJS is a JavaScript data aggregation and visualization library that allows you to quickly load and find patterns in datasets.  Given a data set, InsightJS can group the records across the dimensions of the data to quickly aggregate and provide statistics on the data.
+### Version 1.2.1 (04-Nov-2014)
+
+* Library changes:
+  * Improved documentation for working with groupings.
+  * Updated Grouping calculations to improve consistency
+    * Grouping.count() stores total count in `value.propertyName.totalCount` rather than `value.propertyName.Total`
+    * Grouping.mean() stores mean in `value.propertyName.mean` rather than `value.propertyName.Average`
+    * Grouping.sum() stores sum in `value.propertyName.sum` rather than `value.propertyName.Sum`
+  * Removed insight.Chart.title
+  * Added insight.Series.title
+  * Updated library to work with crossfilter to 1.3.11
+  * Added utility, insight.conversion, for converting arff data to json data
+
+Issues fixed:
+  * insight.DataSet.group function ignored any filter already applied on the DataSet.
 
 ### Version 1.2.0 (07-Oct-2014)
 
