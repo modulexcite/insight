@@ -31,12 +31,11 @@
         //Configure for chart
         self.chartStyle.seriesPalette = ['#3182bd', '#c6dbed', '#6baed6', '#08519c', '#9ecae1'];
         self.chartStyle.fillColor = '#fff';
-        self.chartStyle.titleFont = 'bold 12pt Helvetica Neue';
-        self.chartStyle.titleColor = '#000';
 
         //Configure series
         self.seriesStyle.shouldShowPoints = false;
         self.seriesStyle.lineStyle = 'linear';
+        self.seriesStyle.pointRadius = 3;
 
         //Configure table
         self.tableStyle.headerFont = 'bold 14pt Helvetica Neue';

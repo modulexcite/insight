@@ -26,7 +26,7 @@
         }
 
         function textContent(item) {
-            return item.name;
+            return item.title();
         }
 
         // Internal functions -----------------------------------------------------------------------------------------
@@ -60,10 +60,6 @@
             }
 
             var series = chart.series();
-
-            var legendHeight = 0;
-            var legendWidth = 0;
-
             var ctx = chart.measureCanvas.getContext('2d');
             ctx.font = "12px sans-serif";
 
@@ -77,6 +73,11 @@
                 .attr("height", 10)
                 .style("fill", blobFillColor);
 
+            chart.legendItems.selectAll('rect')
+                .data(series)
+                .transition()
+                .style('fill', blobFillColor);
+
             chart.legendItems.selectAll('text')
                 .data(series)
                 .enter()
@@ -84,7 +85,7 @@
                 .attr("x", 20)
                 .attr("y", textPositionY)
                 .attr("width", function(item) {
-                    return ctx.measureText(item.name).width;
+                    return ctx.measureText(item.title()).width;
                 })
                 .attr("height", 20)
                 .text(textContent)
@@ -92,12 +93,15 @@
                 .attr("font-size", "12px")
                 .attr("fill", "black");
 
+            var legendHeight = 0;
+            var legendWidth = 0;
+
             for (var index = 0; index < series.length; index++) {
-                var seriesTextWidth = ctx.measureText(series[index].name)
+                var seriesTextWidth = ctx.measureText(series[index].title())
                     .width;
-                legendHeight = index * 20 + 20;
                 legendWidth = Math.max(legendWidth, seriesTextWidth + 25);
             }
+            legendHeight = series.length * 20;
 
             // Adjust legend to tightly wrap items
             chart.legendBox

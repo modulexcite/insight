@@ -8,16 +8,15 @@ module.exports = function(grunt) {
     'src/mda/*.js', 
     'src/charts/Theming/Theme.js',
     'src/charts/Theming/LightTheme.js',
+    'src/charts/Theming/WarmTheme.js',
     'src/charts/ChartGroup.js',
     'src/charts/Chart.js',
     'src/charts/Table.js',
     'src/charts/Tooltip.js',
     'src/charts/Legend.js',
     'src/charts/Axis/Axis.js',
-    'src/charts/Axis/ScaleStrategies/AxisStrategy.js',
-    'src/charts/Axis/ScaleStrategies/DateAxis.js',
-    'src/charts/Axis/ScaleStrategies/LinearAxis.js',
-    'src/charts/Axis/ScaleStrategies/OrdinalAxis.js',
+    'src/charts/Axis/AxisStrategies/*.js',
+    'src/charts/Axis/Scales.js',
     'src/charts/Axis/AxisGridlines.js',
     'src/charts/Series/Series.js',
     'src/charts/Series/PointSeries.js',
@@ -128,11 +127,20 @@ module.exports = function(grunt) {
         }
     },
     watch: {
-      files: ['<%= jshint.files %>', 'tests/**/*.spec.js'],
-      tasks: ['deploy'],
-      options: {
-          livereload: true
-      }
+        deploy: {
+            files: ['<%= jshint.files %>', 'tests/**/*.spec.js'],
+            tasks: ['deploy'],
+            options: {
+                livereload: true
+            }
+        },
+        test: {
+            files: ['<%= jshint.files %>', 'tests/**/*.spec.js'],
+            tasks: ['test'],
+            options: {
+                livereload: true
+            }
+        }
     },
     compress: {
         zip: {
@@ -170,9 +178,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compress');
-  
 
+
+  grunt.registerTask('test', ['jsbeautifier', 'jshint', 'jasmine']);
   
-  grunt.registerTask('deploy', ['jsbeautifier', 'jshint', 'jasmine', 'concat', 'uglify', 'cssmin', 'clean', 'jsdoc', 'compress']);
-  grunt.registerTask('default', ['deploy', 'connect:server','open','watch']);
+  grunt.registerTask('deploy', ['test', 'concat', 'uglify', 'cssmin', 'clean', 'jsdoc', 'compress']);
+  grunt.registerTask('default', ['deploy', 'connect:server', 'open', 'watch:deploy']);
+  grunt.registerTask('test-runner', ['test', 'connect:server', 'open', 'watch:test']);
 };
