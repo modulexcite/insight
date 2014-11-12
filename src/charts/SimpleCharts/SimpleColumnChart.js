@@ -29,18 +29,6 @@
             return self;
         };
 
-        //        self.axisRange = function(axis, rangeMin, rangeMax) {
-        //            if (axis === 'xAxis') {
-        //                xAxisBuilder.axisRange = {};
-        //                xAxisBuilder.axisRange.rangeMin = rangeMin;
-        //                xAxisBuilder.axisRange.rangeMax = rangeMax;
-        //            } else if (axis === 'yAxis') {
-        //                yAxisBuilder.axisRange = {};
-        //                yAxisBuilder.axisRange.rangeMin = rangeMin;
-        //                yAxisBuilder.axisRange.rangeMax = rangeMax;
-        //            }
-        //        };
-
         self.axisTitleColor = function(axis, color) {
             xAxisBuilder.titleColor = color;
             yAxisBuilder.titleColor = color;
@@ -54,14 +42,6 @@
             return self;
         };
 
-        //        self.hasReversedPosition = function(isReversed) {
-        //            xAxisBuilder.isReversed = isReversed;
-        //        };
-        //
-        //        self.shouldOrderAxis = function(isOrdered) {
-        //            xAxisBuilder.isOrdered = isOrdered;
-        //        };
-
         self.lineColor = function(lineColor) {
             xAxisBuilder.lineColor = lineColor;
             yAxisBuilder.lineColor = lineColor;
@@ -73,18 +53,6 @@
             yAxisBuilder.lineWidth = lineWidth;
             return self;
         };
-
-        //        self.orderingFunction = function(orderFunc) {
-        //            xAxisBuilder.orderFunc = orderFunc;
-        //        };
-
-        //        self.shouldDisplay = function(displayed) {
-        //            xAxisBuilder.displayed = self.displayed;
-        //        };
-
-        //        self.shouldShowGridlines = function(showGridlines) {
-        //            xAxisBuilder.showGridlines = showGridlines;
-        //        };
 
         self.textAnchor = function(textAnchor) {
             xAxisBuilder.textAnchor = textAnchor;
@@ -130,10 +98,6 @@
             }
             return self;
         };
-        //
-        //        self.tickLabelRotation = function(tickLabelRotation) {
-        //            xAxisBuilder.tickLabelRotation = tickLabelRotation;
-        //        };
 
         self.tickPadding = function(tickPadding) {
             xAxisBuilder.tickPadding = self.tickPadding;
@@ -152,10 +116,6 @@
             yAxisBuilder.tickWidth = tickWidth;
             return self;
         };
-
-        //        self.axisTitle = function(axisTitle) {
-        //            xAxisBuilder.title = axisTitle;
-        //        };
 
         //Series Settable Properties
 
