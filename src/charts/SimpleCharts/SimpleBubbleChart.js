@@ -3,14 +3,15 @@
  */
 
 (function(insight) {
-    insight.SimpleColumnChart = function(data, element, keyProperty, valueProperty) {
+    insight.SimpleBubbleChart = function(data, element, keyProperty, valueProperty, radiusProperty) {
 
         insight.SimpleChart.call(this, data, element, keyProperty, valueProperty, {
-            xAxisScale: insight.scales.ordinal,
+            xAxisScale: insight.scales.linear,
             xAxisName: keyProperty,
             yAxisScale: insight.scales.linear,
             yAxisName: valueProperty,
-            seriesType: insight.ColumnSeries
+            seriesType: insight.BubbleSeries,
+            radiusProperty: radiusProperty
         });
     };
 
