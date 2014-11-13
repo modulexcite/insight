@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     'src/charts/Theming/Theme.js',
     'src/charts/Theming/LightTheme.js',
     'src/charts/Theming/WarmTheme.js',
-    'src/charts/Builders/*.js',
     'src/charts/SimpleCharts/*.js',
     'src/charts/ChartGroup.js',
     'src/charts/Chart.js',
