@@ -3,6 +3,17 @@
  */
 
 (function(insight) {
+
+    /**
+     * The SimpleColumnChart class extends the SimpleChart class to create a pre-configured column chart.
+     * @constructor
+     * @extends insight.SimpleChart
+     * @param {insight.DataProvider | Array} data - The object containing this chart's data
+     * @param {String} element - The css selector identifying the div container that the chart will be drawn in.
+     * @param {String} keyProperty - The data field that will be used for the default key function.
+     * @param {String} valueProperty - The data field that will be used for the default value function.
+     */
+
     insight.SimpleColumnChart = function(data, element, keyProperty, valueProperty) {
 
         insight.SimpleChart.call(this, data, element, keyProperty, valueProperty, {

@@ -3,6 +3,17 @@
  */
 
 (function(insight) {
+
+    /**
+     * The SimpleChart base class provides some base functions that are used by any specific types of simple charts that derive from this class
+     * @constructor
+     * @param {insight.DataProvider | Array} data - The object containing this chart's data
+     * @param {String} element - The css selector identifying the div container that the chart will be drawn in.
+     * @param {String} keyProperty - The data field that will be used for the default key function.
+     * @param {String} valueProperty - The data field that will be used for the default value function.
+     * @param {Object} options - The config object that contains default axis names, scales and series type.
+     */
+
     insight.SimpleChart = function(data, element, keyProperty, valueProperty, options) {
 
         var self = this;
@@ -18,6 +29,12 @@
         };
 
         //Construct the chart object
+
+        /*
+         * Creates and returns the chart object.
+         * @memberof insight.SimpleChart
+         * @returns {insight.Chart} A chart object with the chosen/defaulted axes and series.
+         */
         self.build = function() {
 
             var dataset = new insight.DataSet(data);
