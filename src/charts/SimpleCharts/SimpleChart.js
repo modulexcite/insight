@@ -28,8 +28,6 @@
             return self;
         };
 
-        //Construct the chart object
-
         /*
          * Creates and returns the chart object.
          * @memberof insight.SimpleChart
