@@ -37,7 +37,7 @@
          */
         self.build = function() {
 
-            var dataset = new insight.DataSet(data);
+            var dataset = data instanceof insight.DataSet ? data : new insight.DataSet(data);
 
             var xAxis = new insight.Axis(options.xAxisName, options.xAxisScale)
                 .tickLabelOrientation('tb');
