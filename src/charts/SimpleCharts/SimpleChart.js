@@ -22,7 +22,9 @@
 
             var dataset = new insight.DataSet(data);
 
-            var xAxis = new insight.Axis(options.xAxisName, options.xAxisScale);
+            var xAxis = new insight.Axis(options.xAxisName, options.xAxisScale)
+                .tickLabelOrientation('tb');
+
             var yAxis = new insight.Axis(options.yAxisName, options.yAxisScale);
             var series = new options.seriesType('series', dataset, xAxis, yAxis)
                 .keyFunction(function(d) {
@@ -41,7 +43,9 @@
             return new insight.Chart('', element)
                 .xAxis(xAxis)
                 .yAxis(yAxis)
-                .series([series]);
+                .series([series])
+                .width(500)
+                .height(500);
         };
     };
 

@@ -29,6 +29,8 @@ describe('SimpleChart', function() {
 
         insight.Axis = function(name, scale) {
 
+            var tickLabelOrientation;
+
             this.title = function() {
                 return name;
             };
@@ -38,6 +40,15 @@ describe('SimpleChart', function() {
             };
 
             this.addSeries = function () {
+            };
+
+            this.tickLabelOrientation = function(direction){
+                if (!arguments.length) {
+                    return tickLabelOrientation;
+                }
+
+                tickLabelOrientation = direction;
+                return this;
             };
 
             return this;
@@ -129,6 +140,17 @@ describe('SimpleChart', function() {
         expect(simpleChart.build().series()[0] instanceof insight.ColumnSeries).toBe(true);
     });
 
+    it('defaults tick labels on x-axis to display vertically', function() {
+
+        expect(simpleChart.build().xAxis().tickLabelOrientation()).toBe('tb');
+    });
+
+    it('defaults chart width and height to 500px', function() {
+
+        expect(simpleChart.build().width()).toBe(500);
+        expect(simpleChart.build().height()).toBe(500);
+    });
+
     //Setters
     it('can set xAxisScale and yAxisScale', function() {
 
@@ -144,7 +166,7 @@ describe('SimpleChart', function() {
         options.radiusProperty = function() {};
 
         expect(simpleChart.build().series()[0].radiusFunction()).toBeTruthy();
-    })
+    });
 
 
 });
