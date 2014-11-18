@@ -112,8 +112,6 @@
                 var circles = chart.plotArea.selectAll("circle")
                     .data(self.dataset());
 
-                console.log(circles);
-
                 circles.enter()
                     .append('circle')
                     .attr('class', self.colorClass())
