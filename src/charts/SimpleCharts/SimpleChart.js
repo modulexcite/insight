@@ -43,32 +43,72 @@
                 .tickLabelOrientation('tb');
 
             var yAxis = new insight.Axis(options.yAxisName, options.yAxisScale);
+            var valueFunction;
+            var keyFunction;
 
-            if (options.groupingProperty) {
+            if (options.groupingProperty === 'count') {
 
-                var grouping = dataset.group('grouping', function(d) {
-                    return d[keyProperty];
-                })[options.groupingProperty]([valueProperty]);
+                keyFunction = function(d) {
+                    return d.key;
+                };
 
-                series = new options.seriesType('series', grouping, xAxis, yAxis)
-                    .valueFunction(function(d) {
-                        if (options.groupingProperty === 'count') {
-                            return d.value[options.groupingProperty];
-                        } else {
-                            return d.value[valueProperty][options.groupingProperty];
-                        }
-                    });
+                valueFunction = function(d) {
+                    return d.value[options.groupingProperty];
+                };
+            } else if (options.groupingProperty) {
 
+                keyFunction = function(d) {
+                    return d.key;
+                };
+
+                valueFunction = function(d) {
+                    return d.value[valueProperty][options.groupingProperty];
+                };
             } else {
 
-                series = new options.seriesType('series', dataset, xAxis, yAxis)
-                    .keyFunction(function(d) {
-                        return d[keyProperty];
-                    })
-                    .valueFunction(function(d) {
-                        return d[valueProperty];
-                    });
+                keyFunction = function(d) {
+                    return d[keyProperty];
+                };
+
+                valueFunction = function(d) {
+                    return d[valueProperty];
+                };
             }
+
+            dataset = options.groupingProperty ? dataset.group('grouping', function(d) {
+                return d[keyProperty];
+            })[options.groupingProperty]([valueProperty]) : dataset;
+
+            series = new options.seriesType('series', dataset, xAxis, yAxis)
+                .keyFunction(keyFunction)
+                .valueFunction(valueFunction);
+
+
+            //            if (options.groupingProperty) {
+            //
+            //                var grouping = dataset.group('grouping', function(d) {
+            //                    return d[keyProperty];
+            //                })[options.groupingProperty]([valueProperty]);
+            //
+            //                series = new options.seriesType('series', grouping, xAxis, yAxis)
+            //                    .valueFunction(function(d) {
+            //                        if (options.groupingProperty === 'count') {
+            //                            return d.value[options.groupingProperty];
+            //                        } else {
+            //                            return d.value[valueProperty][options.groupingProperty];
+            //                        }
+            //                    });
+            //
+            //            } else {
+            //
+            //                series = new options.seriesType('series', dataset, xAxis, yAxis)
+            //                    .keyFunction(function(d) {
+            //                        return d[keyProperty];
+            //                    })
+            //                    .valueFunction(function(d) {
+            //                        return d[valueProperty];
+            //                    });
+            //            }
 
             if (options.radiusProperty) {
                 series.radiusFunction(function(d) {
