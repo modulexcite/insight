@@ -36,20 +36,39 @@
          * @returns {insight.Chart} A chart object with the chosen/defaulted axes and series.
          */
         self.build = function() {
-
+            var series;
             var dataset = data instanceof insight.DataSet ? data : new insight.DataSet(data);
 
             var xAxis = new insight.Axis(options.xAxisName, options.xAxisScale)
                 .tickLabelOrientation('tb');
 
             var yAxis = new insight.Axis(options.yAxisName, options.yAxisScale);
-            var series = new options.seriesType('series', dataset, xAxis, yAxis)
-                .keyFunction(function(d) {
+
+            if (options.groupingProperty) {
+
+                var grouping = dataset.group('grouping', function(d) {
                     return d[keyProperty];
-                })
-                .valueFunction(function(d) {
-                    return d[valueProperty];
-                });
+                })[options.groupingProperty]([valueProperty]);
+
+                series = new options.seriesType('series', grouping, xAxis, yAxis)
+                    .valueFunction(function(d) {
+                        if (options.groupingProperty === 'count') {
+                            return d.value[options.groupingProperty];
+                        } else {
+                            return d.value[valueProperty][options.groupingProperty];
+                        }
+                    });
+
+            } else {
+
+                series = new options.seriesType('series', dataset, xAxis, yAxis)
+                    .keyFunction(function(d) {
+                        return d[keyProperty];
+                    })
+                    .valueFunction(function(d) {
+                        return d[valueProperty];
+                    });
+            }
 
             if (options.radiusProperty) {
                 series.radiusFunction(function(d) {

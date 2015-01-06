@@ -14,14 +14,15 @@
      * @param {String} valueProperty - The data field that will be used for the default value function.
      */
 
-    insight.SimpleScatterChart = function(data, element, keyProperty, valueProperty) {
+    insight.SimpleScatterChart = function(data, element, keyProperty, valueProperty, groupingProperty) {
 
         insight.SimpleChart.call(this, data, element, keyProperty, valueProperty, {
             xAxisScale: insight.scales.linear,
             xAxisName: keyProperty,
             yAxisScale: insight.scales.linear,
             yAxisName: valueProperty,
-            seriesType: insight.ScatterSeries
+            seriesType: insight.ScatterSeries,
+            groupingProperty: groupingProperty
         });
     };
 

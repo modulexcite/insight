@@ -15,7 +15,7 @@
      * @param {Object} radiusProperty - The data field that will be used for the default radius function.
      */
 
-    insight.SimpleBubbleChart = function(data, element, keyProperty, valueProperty, radiusProperty) {
+    insight.SimpleBubbleChart = function(data, element, keyProperty, valueProperty, groupingProperty, radiusProperty) {
 
         insight.SimpleChart.call(this, data, element, keyProperty, valueProperty, {
             xAxisScale: insight.scales.linear,
@@ -23,6 +23,7 @@
             yAxisScale: insight.scales.linear,
             yAxisName: valueProperty,
             seriesType: insight.BubbleSeries,
+            groupingProperty: groupingProperty,
             radiusProperty: radiusProperty
         });
     };
