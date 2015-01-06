@@ -12,6 +12,7 @@
      * @param {String} element - The css selector identifying the div container that the chart will be drawn in.
      * @param {String} keyProperty - The data field that will be used for the default key function.
      * @param {String} valueProperty - The data field that will be used for the default value function.
+     * @param {String} groupingProperty - The aggregate value (count, mean or sum) to be calculated for each group.
      */
 
     insight.SimpleRowChart = function(data, element, keyProperty, valueProperty, groupingProperty) {
