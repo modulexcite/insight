@@ -34,20 +34,52 @@
          * @returns {insight.Chart} A chart object with the chosen/defaulted axes and series.
          */
         self.build = function() {
+            var series;
+            var valueFunction;
+            var keyFunction;
 
             var dataset = data instanceof insight.DataSet ? data : new insight.DataSet(data);
 
             var xAxis = new insight.Axis(options.xAxisName, options.xAxisScale)
                 .tickLabelOrientation('tb');
-
             var yAxis = new insight.Axis(options.yAxisName, options.yAxisScale);
-            var series = new options.seriesType('series', dataset, xAxis, yAxis)
-                .keyFunction(function(d) {
+
+            if (options.groupingProperty === 'count') {
+
+                keyFunction = function(d) {
+                    return d.key;
+                };
+
+                valueFunction = function(d) {
+                    return d.value[options.groupingProperty];
+                };
+            } else if (options.groupingProperty) {
+
+                keyFunction = function(d) {
+                    return d.key;
+                };
+
+                valueFunction = function(d) {
+                    return d.value[valueProperty][options.groupingProperty];
+                };
+            } else {
+
+                keyFunction = function(d) {
                     return d[keyProperty];
-                })
-                .valueFunction(function(d) {
+                };
+
+                valueFunction = function(d) {
                     return d[valueProperty];
-                });
+                };
+            }
+
+            dataset = options.groupingProperty ? dataset.group('grouping', function(d) {
+                return d[keyProperty];
+            })[options.groupingProperty]([valueProperty]) : dataset;
+
+            series = new options.seriesType('series', dataset, xAxis, yAxis)
+                .keyFunction(keyFunction)
+                .valueFunction(valueFunction);
 
             if (options.radiusProperty) {
                 series.radiusFunction(function(d) {
