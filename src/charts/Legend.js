@@ -1,10 +1,13 @@
 (function(insight) {
 
     /**
-     * A Legend listing out the series on a chart
-     * @constructor
+     * A Legend listing out the all of the series or only the selected series on a chart depending
+     * on the parameter passed to the constructor.
+     * @constructor insight.Legend
+     * @param {String[]} shownSeries - An array of uniquely identifying series names corresponding to
+     * the series to be shown on the legend.
      */
-    insight.Legend = function Legend() {
+    insight.Legend = function Legend(shownSeries) {
 
         // Private variables ------------------------------------------------------------------------------------------
 
@@ -59,7 +62,9 @@
                 self.init(chart);
             }
 
-            var series = chart.series();
+            var series = shownSeries ? chart.series().filter(function(elem) {
+                return $.inArray(elem.name, shownSeries) > -1;
+            }) : chart.series();
             var ctx = chart.measureCanvas.getContext('2d');
             ctx.font = "12px sans-serif";
 
