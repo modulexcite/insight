@@ -2,6 +2,7 @@
 
 * Library changes:
   * Added grouping to Simple Chart builders
+  * Added parameter to insight.Legend constructor to allow chosen series to be omitted from the legend
 
 === Version 1.3.0 (18-Nov-2014) ===
 
