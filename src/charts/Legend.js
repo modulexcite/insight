@@ -7,7 +7,7 @@
      * @param {String[]} shownSeries - An array of uniquely identifying series names corresponding to
      * the series to be shown on the legend.
      */
-    insight.Legend = function Legend(shownSeries) {
+    insight.Legend = function Legend(filteredSeries) {
 
         // Private variables ------------------------------------------------------------------------------------------
 
@@ -62,8 +62,8 @@
                 self.init(chart);
             }
 
-            var series = shownSeries ? chart.series().filter(function(elem) {
-                return $.inArray(elem.name, shownSeries) > -1;
+            var series = filteredSeries ? chart.series().filter(function(elem) {
+                return $.inArray(elem.name, filteredSeries) > -1;
             }) : chart.series();
             var ctx = chart.measureCanvas.getContext('2d');
             ctx.font = "12px sans-serif";
