@@ -3,6 +3,17 @@ InsightJS [![Travis Results](https://travis-ci.org/ScottLogic/insight.svg?branch
 
 InsightJS is a JavaScript data aggregation and visualization library that allows you to quickly load and find patterns in datasets.  Given a data set, InsightJS can group the records across the dimensions of the data to quickly aggregate and provide statistics on the data.
 
+### Version 1.4.0 (08-Jan-2015)
+
+* Library changes:
+  * Added grouping to Simple Chart builders
+  * Added parameter to insight.Legend constructor to allow a chosen series to be omitted from the legend
+  * Added Series title truncation in insight.Legend
+
+* Issues fixed:
+  * Fixed bug where Legend is cut off if a series title is too long
+
+
 ### Version 1.3.0 (18-Nov-2014)
 
 * Library changes:
