@@ -60,6 +60,7 @@ describe('SimpleChart', function() {
             var keyFunc;
             var valFunc;
             var radFunc;
+            var groupKeyFunc;
 
             this.name = name;
             this.x = xAxis;
@@ -87,6 +88,15 @@ describe('SimpleChart', function() {
                     return radFunc;
                 }
                 radFunc = func;
+
+                return this
+            };
+
+            this.groupKeyFunction  = function(func) {
+                if (!arguments.length) {
+                    return this.keyFunction();
+                }
+                this.keyFunction(func);
 
                 return this
             };
@@ -166,6 +176,40 @@ describe('SimpleChart', function() {
         options.radiusProperty = function() {};
 
         expect(simpleChart.build().series()[0].radiusFunction()).toBeTruthy();
+    });
+
+    it('sets the keyFunction to the grouping key property if and only if a groupingProperty is supplied', function() {
+
+        var testObj = {key: true, name: 'Bob'};
+
+        expect(simpleChart.build().series()[0].keyFunction()(testObj)).toBe('Bob');
+
+        options.groupingProperty = 'count';
+
+        expect(simpleChart.build().series()[0].keyFunction()(testObj)).toBe(true);
+    });
+
+    it('sets the valueFunction to the relevant groupingProperty when it is supplied', function() {
+
+        var testObj = {
+            value: {
+                count: 2,
+                age: {
+                    mean: 4
+                }
+            },
+            age: 23
+        };
+
+        expect(simpleChart.build().series()[0].valueFunction()(testObj)).toBe(23);
+
+        options.groupingProperty = 'count';
+
+        expect(simpleChart.build().series()[0].valueFunction()(testObj)).toBe(2);
+
+        options.groupingProperty = 'mean';
+
+        expect(simpleChart.build().series()[0].valueFunction()(testObj)).toBe(4);
     });
 
 
