@@ -4,7 +4,7 @@
      * A Legend listing out the all of the series or only the selected series on a chart depending
      * on the parameter passed to the constructor.
      * @constructor insight.Legend
-     * @param {String[]} shownSeries - An array of uniquely identifying series names corresponding to
+     * @param {String[]} filteredSeries - An array of uniquely identifying series names corresponding to
      * the series to be shown on the legend.
      */
     insight.Legend = function Legend(filteredSeries) {
@@ -29,7 +29,10 @@
         }
 
         function textContent(item) {
-            return item.title();
+
+            var title = item.title();
+
+            return title.length >= 9 ? title.substring(0, 9) + '...' : title;
         }
 
         // Internal functions -----------------------------------------------------------------------------------------
@@ -104,7 +107,7 @@
             for (var index = 0; index < series.length; index++) {
                 var seriesTextWidth = ctx.measureText(series[index].title())
                     .width;
-                legendWidth = Math.max(legendWidth, seriesTextWidth + 25);
+                legendWidth = Math.min(Math.max(legendWidth, seriesTextWidth + 25), 79);
             }
             legendHeight = series.length * 20;
 
